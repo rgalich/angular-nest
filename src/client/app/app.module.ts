@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgZorroAntdModule, NZ_I18N, fr_FR } from 'ng-zorro-antd';
 import { RouterModule } from '@angular/router';
-import { ROUTES } from './app.routes';
+import { ROUTES } from './app-routing.modules';
 
 import { AppComponent } from './app.component';
 
