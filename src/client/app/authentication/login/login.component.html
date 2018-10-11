@@ -1,3 +1,14 @@
-<p>
-  login works!
-</p>
+<div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+  <div fxFlex.lt-md="100%" fxFlex="50%">
+    <nz-card fxFlex="100%" nzHoverable [nzCover]="extraTemplate">
+      <p>Card content</p>
+      <p>Card content</p>
+      <p>Card content</p>
+    </nz-card>
+    <ng-template #extraTemplate>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <nz-avatar nzSize="large" nzIcon="anticon anticon-user" nzSrc="../../../assets/angular-icon.png"></nz-avatar>
+        </div>
+      </ng-template>
+  </div>
+</div>
