@@ -23,6 +23,7 @@
               "src/client/assets"
             ],
             "styles": [
+              "node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css",
               "src/client/styles.css"
             ],
             "scripts": []

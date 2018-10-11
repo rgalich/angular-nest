@@ -36,6 +36,7 @@
     "@nestjs/common": "^5.1.0",
     "@nestjs/core": "^5.1.0",
     "core-js": "^2.5.4",
+    "ng-zorro-antd": "^1.6.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.2.2",
     "zone.js": "~0.8.26"
