@@ -4,13 +4,16 @@ import { CommonModule } from '@angular/common';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './login/login.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     AuthenticationRoutingModule,
     FlexLayoutModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [LoginComponent]
 })

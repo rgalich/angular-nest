@@ -1,18 +1,31 @@
 <div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
   <div fxFlex.lt-md="100%" fxFlex="50%">
-    <nz-card fxFlex="100%" [nzCover]="extraTemplate">
-      <nz-input-group nzPrefixIcon="anticon anticon-user">
-        <input formControlName="userName" nz-input placeholder="Username">
-      </nz-input-group>
-      <nz-input-group nzPrefixIcon="anticon anticon-lock">
-        <input formControlName="password" nz-input type="password" placeholder="Password">
-      </nz-input-group>
-      <div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
-          <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
-      </div>
+    <nz-card [nzCover]="cardAvatar">
+      <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" nzLayout="horizontal">
+        <nz-form-item>
+          <nz-form-label>Mail</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="mail">
+            <nz-form-explain *ngIf="validateForm.get('mail').dirty && validateForm.get('mail').errors">Veuillez saisir votre mail!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>Mot de passe</nz-form-label>
+          <nz-form-control>
+            <input type="password" nz-input formControlName="password">
+            <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">Veuillez saisir votre mot de passe!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control fxLayoutAlign="center">
+            <button nz-button nzType="primary">Connexion</button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+      <a fxLayoutAlign="center" href="https://www.w3schools.com">Visit W3Schools</a>
     </nz-card>
-    <ng-template #extraTemplate>
-      <div fxLayout="row" fxLayoutAlign="center center">
+    <ng-template #cardAvatar>
+      <div fxLayoutAlign="center">
           <nz-avatar nzSize="large" nzIcon="anticon anticon-user" nzSrc="../../../assets/angular-icon.png"></nz-avatar>
       </div>
     </ng-template>
