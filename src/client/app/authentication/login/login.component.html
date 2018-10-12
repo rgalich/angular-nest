@@ -1,14 +1,20 @@
 <div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
   <div fxFlex.lt-md="100%" fxFlex="50%">
-    <nz-card fxFlex="100%" nzHoverable [nzCover]="extraTemplate">
-      <p>Card content</p>
-      <p>Card content</p>
-      <p>Card content</p>
+    <nz-card fxFlex="100%" [nzCover]="extraTemplate">
+      <nz-input-group nzPrefixIcon="anticon anticon-user">
+        <input formControlName="userName" nz-input placeholder="Username">
+      </nz-input-group>
+      <nz-input-group nzPrefixIcon="anticon anticon-lock">
+        <input formControlName="password" nz-input type="password" placeholder="Password">
+      </nz-input-group>
+      <div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+          <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
+      </div>
     </nz-card>
     <ng-template #extraTemplate>
-        <div fxLayout="row" fxLayoutAlign="center center">
-            <nz-avatar nzSize="large" nzIcon="anticon anticon-user" nzSrc="../../../assets/angular-icon.png"></nz-avatar>
-        </div>
-      </ng-template>
+      <div fxLayout="row" fxLayoutAlign="center center">
+          <nz-avatar nzSize="large" nzIcon="anticon anticon-user" nzSrc="../../../assets/angular-icon.png"></nz-avatar>
+      </div>
+    </ng-template>
   </div>
 </div>
