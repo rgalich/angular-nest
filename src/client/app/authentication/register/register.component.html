@@ -1,0 +1,47 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+  <div fxFlex.lt-md="100%" fxFlex="50%">
+    <nz-card [nzCover]="cardAvatar">
+      <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" nzLayout="horizontal">
+        <nz-form-item>
+          <nz-form-label>Prénom</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="firstName">
+            <nz-form-explain *ngIf="validateForm.get('firstName').dirty && validateForm.get('firstName').errors">Veuillez saisir votre prénom!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>Nom</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="lastName">
+            <nz-form-explain *ngIf="validateForm.get('lastName').dirty && validateForm.get('lastName').errors">Veuillez saisir votre nom!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>Mail</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="mail">
+            <nz-form-explain *ngIf="validateForm.get('mail').dirty && validateForm.get('mail').errors">Veuillez saisir votre adresse mail!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>Mot de passe</nz-form-label>
+          <nz-form-control>
+            <input type="password" nz-input formControlName="password">
+            <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">Veuillez saisir votre mot de passe!</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control fxLayoutAlign="center">
+            <button nz-button nzType="primary">Inscription</button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+      <a fxLayoutAlign="center" href="https://www.w3schools.com">Visit W3Schools</a>
+    </nz-card>
+    <ng-template #cardAvatar>
+      <div fxLayoutAlign="center">
+          <nz-avatar nzSize="large" nzIcon="anticon anticon-user" nzSrc="../../../assets/angular-icon.png"></nz-avatar>
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -21,7 +21,7 @@
     "test_server:cov": "jest --coverage",
     "test_server:e2e": "jest --config ./test/jest-e2e.json",
     "webpack_server": "webpack --config webpack.config.js",
-    "start_sw": "node dist/server",
+    "start_sw": "node dist/server"
   },
   "private": true,
   "dependencies": {
