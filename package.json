@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "format_server": "prettier --write \"src/**/*.ts\"",
-    "start_server": "node dist/server",
+    "start_server": "ts-node -r tsconfig-paths/register src/server/main.ts",
     "start_server:dev": "nodemon",
     "start_server:debug": "nodemon --config nodemon-debug.json",
     "prestart_server:prod": "rimraf dist && tsc",
@@ -20,7 +20,8 @@
     "test_server:watch": "jest --watch",
     "test_server:cov": "jest --coverage",
     "test_server:e2e": "jest --config ./test/jest-e2e.json",
-    "webpack_server": "webpack --config webpack.config.js"
+    "webpack_server": "webpack --config webpack.config.js",
+    "start_sw": "node dist/server",
   },
   "private": true,
   "dependencies": {
