@@ -38,6 +38,8 @@
     "@nestjs/common": "^5.1.0",
     "@nestjs/core": "^5.1.0",
     "@nestjs/typeorm": "^5.2.2",
+    "@types/bcrypt": "^3.0.0",
+    "bcrypt": "^2.0.1",
     "core-js": "^2.5.4",
     "ng-zorro-antd": "^1.6.0",
     "pg": "^7.5.0",
