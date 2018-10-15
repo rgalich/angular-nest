@@ -16,8 +16,8 @@ export class UserService {
     return this.http.post<UserCreateDto>(`${environment.baseUrl}/user`, user);
   }
 
-  login(user: UserLoginDto): Observable<UserLoginDto> {
-    return this.http.post<UserLoginDto>(`${environment.baseUrl}/user/login`, user);
+  login(user: UserLoginDto): Observable<string> {
+    return this.http.post<string>(`${environment.baseUrl}/auth`, user);
   }
 
   findAll(): Observable<any[]> {

@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     this.formControlsService.validateControls(this.validateForm.controls);
     if (this.validateForm.valid) {
       const user: UserLoginDto = this.validateForm.value;
+      console.log(this.userService.login(user));
       this.userService.login(user).subscribe(e => console.log(e));
     }
   }

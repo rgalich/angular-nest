@@ -5,7 +5,6 @@ import { User } from './user.entity';
 import { UserCreateDto } from '../../../shared/dto/user/UserCreateDto';
 import { UserLoginDto } from '../../../shared/dto/user/UserLoginDto';
 import { BcryptService } from '../../core/service/bcrypt.service';
-import { promise } from 'selenium-webdriver';
 
 @Injectable()
 export class UserService {
