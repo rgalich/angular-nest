@@ -9,5 +9,6 @@ import { BcryptService } from '../../core/service/bcrypt.service';
   imports: [TypeOrmModule.forFeature([User])],
   providers: [UserService, BcryptService],
   controllers: [UserController],
+  exports: [UserService]
 })
 export class UserModule {}
