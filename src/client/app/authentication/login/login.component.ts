@@ -1,6 +1,8 @@
 import { FormControlsService } from './../../core/service/form-controls.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserLoginDto } from '../../../../shared/dto/user/UserLoginDto';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +11,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private formControlsService: FormControlsService) { }
+  constructor(
+    private fb: FormBuilder,
+    private formControlsService: FormControlsService,
+    private userService: UserService
+  ) { }
 
   validateForm: FormGroup;
 
@@ -22,6 +28,10 @@ export class LoginComponent implements OnInit {
 
   submitForm() {
     this.formControlsService.validateControls(this.validateForm.controls);
+    if (this.validateForm.valid) {
+      const user: UserLoginDto = this.validateForm.value;
+      this.userService.login(user).subscribe(e => console.log(e));
+    }
   }
 
 }
