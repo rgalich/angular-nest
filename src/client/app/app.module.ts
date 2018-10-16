@@ -5,7 +5,8 @@ import { RouterModule } from '@angular/router';
 import { ROUTES } from './app-routing.modules';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,10 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [{ provide: NZ_I18N, useValue: fr_FR }],
+  providers: [
+    { provide: NZ_I18N, useValue: fr_FR },
+    { provide: HTTP_INTERCEPTORS, useExisting: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

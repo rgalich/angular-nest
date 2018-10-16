@@ -1,5 +1,6 @@
 import { UserCreateDto } from './../../../shared/dto/user/UserCreateDto';
 import { UserLoginDto } from './../../../shared/dto/user/UserLoginDto';
+import { AuthTokenDto } from './../../../shared/dto/auth/AuthTokenDto';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';

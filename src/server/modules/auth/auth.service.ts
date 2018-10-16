@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { UserLoginDto } from 'shared/dto/user/UserLoginDto';
+import { AuthTokenDto } from 'shared/dto/auth/AuthTokenDto';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +14,7 @@ export class AuthService {
     private bcryptService: BcryptService
   ) {}
 
-  async createToken(userLogin: UserLoginDto): Promise<any> {
+  async createToken(userLogin: UserLoginDto): Promise<AuthTokenDto> {
     const user = await this.userService.findByMail(userLogin.mail);
     if (user && this.bcryptService.compareHash(userLogin.password, user.password)) {
       const jwtPayload: JwtPayload = { mail: user.mail };
@@ -21,11 +22,9 @@ export class AuthService {
       const accessToken = this.jwtService.sign(jwtPayload);
       return {
         expiresIn: 3600,
-        accessToken,
+        accessToken
       };
     }
-
-    return '';
   }
 
   async validateUser(payload: JwtPayload): Promise<any> {
