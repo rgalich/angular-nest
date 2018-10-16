@@ -2,8 +2,9 @@ import { FormControlsService } from './../../core/service/form-controls.service'
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserLoginDto } from '../../../../shared/dto/user/UserLoginDto';
-import { UserService } from '../../service/user.service';
+
 import { Router } from '@angular/router';
+import { AuthService } from 'app/service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,15 +17,15 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private formControlsService: FormControlsService,
-    private userService: UserService
+    private authService: AuthService
   ) { }
 
   validateForm: FormGroup;
 
   ngOnInit() {
     this.validateForm = this.fb.group({
-      mail: [ null, [ Validators.required ] ],
-      password: [ null, [ Validators.required ] ]
+      mail: [ '', [ Validators.required ] ],
+      password: [ '', [ Validators.required ] ]
     });
   }
 
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
     this.formControlsService.validateControls(this.validateForm.controls);
     if (this.validateForm.valid) {
       const user: UserLoginDto = this.validateForm.value;
-      this.userService.login(user).subscribe(() => this.router.navigate(['/']));
+      this.authService.login(user).subscribe(() => this.router.navigate(['/']));
     }
   }
 

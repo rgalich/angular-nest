@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserCreateDto } from 'shared/dto/user/UserCreateDto';
 import { UserLoginDto } from 'shared/dto/user/UserLoginDto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class UserController {
@@ -13,6 +14,7 @@ export class UserController {
   }
 
   @Post()
+  @UseGuards(AuthGuard())
   async create(@Body() user: UserCreateDto) {
     return this.userService.create(user);
   }
