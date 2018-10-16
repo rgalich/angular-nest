@@ -13,12 +13,16 @@ export class AuthService {
     private bcryptService: BcryptService
   ) {}
 
-  async signIn(userLogin: UserLoginDto): Promise<string> {
+  async createToken(userLogin: UserLoginDto): Promise<any> {
     const user = await this.userService.findByMail(userLogin.mail);
     if (user && this.bcryptService.compareHash(userLogin.password, user.password)) {
       const jwtPayload: JwtPayload = { mail: user.mail };
 
-      return this.jwtService.sign(jwtPayload);
+      const accessToken = this.jwtService.sign(jwtPayload);
+      return {
+        expiresIn: 3600,
+        accessToken,
+      };
     }
 
     return '';

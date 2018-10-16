@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserLoginDto } from '../../../../shared/dto/user/UserLoginDto';
 import { UserService } from '../../service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { UserService } from '../../service/user.service';
 export class LoginComponent implements OnInit {
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private formControlsService: FormControlsService,
     private userService: UserService
@@ -30,8 +32,7 @@ export class LoginComponent implements OnInit {
     this.formControlsService.validateControls(this.validateForm.controls);
     if (this.validateForm.valid) {
       const user: UserLoginDto = this.validateForm.value;
-      console.log(this.userService.login(user));
-      this.userService.login(user).subscribe(e => console.log(e));
+      this.userService.login(user).subscribe(() => this.router.navigate(['/']));
     }
   }
 
