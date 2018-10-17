@@ -15,13 +15,9 @@ export class JwtInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         const token = this.authService.getAuthStorage();
-        if (token) {
-            const clone = req.clone({ setHeaders: { 'Authorization': `Bearer ${token}` }});
-            return next.handle(clone);
-        }
+        const clone = token ? req.clone({ setHeaders: { 'Authorization': `Bearer ${token}` }}) : req;
 
-        console.log(req);
-        return next.handle(req).pipe(
+        return next.handle(clone).pipe(
             catchError((errorResponse: HttpErrorResponse) => {
                 if (errorResponse.status === 401) {
                     this.router.navigateByUrl('/authentication');

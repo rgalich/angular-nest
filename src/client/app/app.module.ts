@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { LoggedGuard } from './guards/logged.guard';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     RouterModule.forRoot(ROUTES)
   ],
   providers: [
+    LoggedGuard,
     { provide: NZ_I18N, useValue: fr_FR },
     { provide: HTTP_INTERCEPTORS, useExisting: JwtInterceptor, multi: true }
   ],
