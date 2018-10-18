@@ -10,7 +10,7 @@ import { AuthTokenDto } from 'shared/dto/auth/AuthTokenDto';
 export class AuthService {
   constructor(
     private userService: UserService,
-    private readonly jwtService: JwtService,
+    private jwtService: JwtService,
     private bcryptService: BcryptService
   ) {}
 
