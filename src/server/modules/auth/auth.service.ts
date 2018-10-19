@@ -5,13 +5,15 @@ import { UserService } from '../user/user.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { UserLoginDto } from 'shared/dto/user/UserLoginDto';
 import { AuthTokenDto } from 'shared/dto/auth/AuthTokenDto';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
-    private bcryptService: BcryptService
+    private bcryptService: BcryptService,
+    private configService: ConfigService
   ) {}
 
   async createToken(userLogin: UserLoginDto): Promise<AuthTokenDto> {
@@ -21,7 +23,7 @@ export class AuthService {
 
       const accessToken = this.jwtService.sign(jwtPayload);
       return {
-        expiresIn: 3600,
+        expiresIn: +this.configService.get('EXPIRE_IN'),
         accessToken
       };
     }

@@ -18,7 +18,7 @@ import { ConfigService } from '../config/config.service';
       useFactory: async (configService: ConfigService) => ({
         secretOrPrivateKey: configService.get('SECRET_KEY'),
         signOptions: {
-          expiresIn: 3600,
+          expiresIn: configService.get('EXPIRE_IN'),
         },
       }),
       inject: [ConfigService],
