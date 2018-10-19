@@ -6,7 +6,7 @@ import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { UserLoginDto } from 'shared/dto/user/UserLoginDto';
 import { AuthTokenDto } from 'shared/dto/auth/AuthTokenDto';
 import { ConfigService } from '../config/config.service';
-
+import * as moment from 'moment';
 @Injectable()
 export class AuthService {
   constructor(
@@ -23,7 +23,7 @@ export class AuthService {
 
       const accessToken = this.jwtService.sign(jwtPayload);
       return {
-        expiresIn: +this.configService.get('EXPIRE_IN'),
+        expiresIn: moment().add(+this.configService.get('EXPIRE_IN'), 's').toISOString(),
         accessToken
       };
     }

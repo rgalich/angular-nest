@@ -10,7 +10,7 @@ export class LoggedGuard implements CanActivate {
     constructor(private router: Router, private authService: AuthService) {}
 
     canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-        if (!!this.authService.getAuthStorage()) {
+        if (!this.authService.getAuthStorage()) {
             this.router.navigate(['/authentication']);
         }
         return true;

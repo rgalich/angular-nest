@@ -1,5 +1,5 @@
 export class AuthTokenDto {
-    expiresIn: number;
+    expiresIn: string;
 
     accessToken: string;
 }
