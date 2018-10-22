@@ -41,11 +41,11 @@ describe('LoginComponent', () => {
         componentInstance.submitForm();
         fixture.detectChanges();
 
+        expect(fakeFormControlsService.validateControls).toHaveBeenCalledWith(componentInstance.validateForm.controls);
         expect(mailInput).not.toBeNull('You should have an input mail');
-        expect(mailInput.classList.contains("ng-invalid")).toBe(true, 'The button should be enabled if the form is valid');
+        expect(mailInput.classList.contains("ng-invalid")).toBe(true, 'The mail is invalid');
         expect(passwordInput).not.toBeNull('You should have an input password');
-        expect(passwordInput.classList.contains("ng-invalid")).toBe(true, 'The button should be enabled if the form is valid');
-        
+        expect(passwordInput.classList.contains("ng-invalid")).toBe(true, 'The password is invalid');
         expect(componentInstance.validateForm.valid).toBe(false, 'The button should be enabled if the form is valid');
     });
 })
