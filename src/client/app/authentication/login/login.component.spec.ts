@@ -1,10 +1,11 @@
 import { of, throwError } from 'rxjs';
 import { LoginComponent } from './login.component';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/service/auth.service';
 import { AuthenticationModule } from '../authentication.module';
 import { FormControlsService } from 'app/core/service/form-controls.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('LoginComponent', () => {
 
@@ -15,7 +16,8 @@ describe('LoginComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                AuthenticationModule
+                AuthenticationModule,
+                NoopAnimationsModule
             ],
             providers: [
                 { provide: AuthService, useValue: fakeAuthService },
@@ -94,6 +96,7 @@ describe('LoginComponent', () => {
         fakeAuthService.login.and.returnValue(throwError({ status: 401 }));
 
         const element = fixture.nativeElement;
+        const componentInstance = fixture.componentInstance;
 
         const mailInput = element.querySelector('[formcontrolname="mail"]');
         mailInput.value = 'mail';
@@ -106,7 +109,8 @@ describe('LoginComponent', () => {
         fixture.detectChanges();
         submitButton.click();
 
-        expect(fakeRouter.navigate).not.toHaveBeenCalledWith(['/']);
+        expect(fakeRouter.navigate).not.toHaveBeenCalled();
+        expect(componentInstance.authenticationFailed).toBe(true, 'AuthenticationFailed is true');
     });
 
     it('valid success response form', () => {
@@ -116,6 +120,7 @@ describe('LoginComponent', () => {
         fakeAuthService.login.and.returnValue(of({ expiresIn: 'date', accessToken: 'token' }));
 
         const element = fixture.nativeElement;
+        const componentInstance = fixture.componentInstance;
 
         const mailInput = element.querySelector('[formcontrolname="mail"]');
         mailInput.value = 'mail';
@@ -129,5 +134,30 @@ describe('LoginComponent', () => {
         submitButton.click();
 
         expect(fakeRouter.navigate).toHaveBeenCalledWith(['/']);
+        expect(componentInstance.authenticationFailed).toBe(false, 'AuthenticationFailed is false');
+    });
+
+    it('show alert', () => {
+        const fixture = TestBed.createComponent(LoginComponent);
+        const componentInstance = fixture.componentInstance;
+        componentInstance.authenticationFailed = true;
+        fixture.detectChanges();
+
+        const element = fixture.nativeElement;
+
+        const alert = element.querySelector('nz-alert');
+        expect(alert).not.toBeNull('Alert component is show');
+    });
+
+    it('not show alert', () => {
+        const fixture = TestBed.createComponent(LoginComponent);
+        const componentInstance = fixture.componentInstance;
+        componentInstance.authenticationFailed = false;
+        fixture.detectChanges();
+
+        const element = fixture.nativeElement;
+
+        const alert = element.querySelector('nz-alert');
+        expect(alert).toBeNull('Alert component is not show');
     });
 });

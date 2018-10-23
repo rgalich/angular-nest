@@ -1,6 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
   <div fxFlex.lt-md="100%" fxFlex="50%">
     <nz-card [nzCover]="cardAvatar">
+      <nz-alert *ngIf="authenticationFailed" nzCloseable nzType="warning" nzMessage="L'adresse mail ou le mot de passe est incorrect." nzShowIcon></nz-alert>
       <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" nzLayout="horizontal">
         <nz-form-item>
           <nz-form-label>Mail</nz-form-label>

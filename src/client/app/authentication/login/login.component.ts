@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   validateForm: FormGroup;
+  authenticationFailed = false;
 
   ngOnInit() {
     this.validateForm = this.fb.group({
@@ -30,11 +31,11 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
+    this.authenticationFailed = false;
     this.formControlsService.validateControls(this.validateForm.controls);
     if (this.validateForm.valid) {
       const user: UserLoginDto = this.validateForm.value;
-      this.authService.login(user).subscribe(() => this.router.navigate(['/']));
+      this.authService.login(user).subscribe(() => this.router.navigate(['/']), () => this.authenticationFailed = true);
     }
   }
-
 }
