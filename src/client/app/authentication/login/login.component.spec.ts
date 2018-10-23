@@ -2,10 +2,10 @@ import { of, throwError } from 'rxjs';
 import { LoginComponent } from './login.component';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { AuthService } from 'app/service/auth.service';
 import { AuthenticationModule } from '../authentication.module';
-import { FormControlsService } from 'app/core/service/form-controls.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { FormControlsService } from '../../core/service/form-controls.service';
+import { AuthService } from '../../service/auth.service';
 
 describe('LoginComponent', () => {
 
