@@ -9,7 +9,7 @@ export const ROUTES: Routes = [
     },
     {
         path: '',
-        component: AppComponent,
+        loadChildren: 'app/home/home.module#HomeModule',
         canActivate: [LoggedGuard]
     }
 ];

@@ -21,7 +21,8 @@ export class AuthService {
   }
 
   expireAuthStorage(authStorage: string) {
-      if (moment() > moment((JSON.parse(authStorage) as AuthTokenDto).expiresIn)) {
+      console.log(authStorage)
+      if (authStorage && moment() > moment((JSON.parse(authStorage) as AuthTokenDto).expiresIn)) {
         this.removeAuthStorage();
         return null;
       }
