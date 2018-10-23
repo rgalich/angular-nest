@@ -1,5 +1,6 @@
+import { of, throwError } from 'rxjs';
 import { LoginComponent } from './login.component';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/service/auth.service';
 import { AuthenticationModule } from '../authentication.module';
@@ -23,29 +24,110 @@ describe('LoginComponent', () => {
               ]
         });
     });
-    
-    it('should display original title', () => {
+
+    it ('structure form', () => {
         const fixture = TestBed.createComponent(LoginComponent);
         fixture.detectChanges();
-        const componentInstance = fixture.componentInstance;
-        
+
         const element = fixture.nativeElement;
 
         const mailInput = element.querySelector('[formcontrolname="mail"]');
-        // mailInput.value = 'mail';
-        // mailInput.dispatchEvent(new Event('input'));
         const passwordInput = element.querySelector('[formcontrolname="password"]');
-        // passwordInput.value = 'password';
-        // passwordInput.dispatchEvent(new Event('input'));
+        const submitButton = element.querySelector('button');
 
-        componentInstance.submitForm();
+        expect(mailInput).not.toBeNull('Input mail exist');
+        expect(passwordInput).not.toBeNull('Input password exist');
+        expect(submitButton).not.toBeNull('Button submit exist');
+    });
+
+    it('invalid form', () => {
+        const fixture = TestBed.createComponent(LoginComponent);
+        fixture.detectChanges();
+        const componentInstance = fixture.componentInstance;
+
+        const element = fixture.nativeElement;
+
+        const mailInput = element.querySelector('[formcontrolname="mail"]');
+        const passwordInput = element.querySelector('[formcontrolname="password"]');
+        const submitButton = element.querySelector('button');
+
+        fixture.detectChanges();
+        submitButton.click();
+
+        expect(mailInput.classList.contains('ng-invalid')).toBe(true, 'Input mail is invalid');
+        expect(passwordInput.classList.contains('ng-invalid')).toBe(true, 'Input password is invalid');
+        expect(fakeFormControlsService.validateControls).toHaveBeenCalledWith(componentInstance.validateForm.controls);
+        expect(componentInstance.validateForm.valid).toBe(false, 'Form is invalid');
+    });
+
+    it('valid form', () => {
+        const fixture = TestBed.createComponent(LoginComponent);
         fixture.detectChanges();
 
+        fakeAuthService.login.and.returnValue(of());
+
+        const componentInstance = fixture.componentInstance;
+
+        const element = fixture.nativeElement;
+
+        const mailInput = element.querySelector('[formcontrolname="mail"]');
+        mailInput.value = 'mail';
+        mailInput.dispatchEvent(new Event('input'));
+        const passwordInput = element.querySelector('[formcontrolname="password"]');
+        passwordInput.value = 'password';
+        passwordInput.dispatchEvent(new Event('input'));
+        const submitButton = element.querySelector('button');
+
+        fixture.detectChanges();
+        submitButton.click();
+
+        expect(mailInput.classList.contains('ng-valid')).toBe(true, 'Input mail is valid');
+        expect(passwordInput.classList.contains('ng-valid')).toBe(true, 'Input password is valid');
         expect(fakeFormControlsService.validateControls).toHaveBeenCalledWith(componentInstance.validateForm.controls);
-        expect(mailInput).not.toBeNull('You should have an input mail');
-        expect(mailInput.classList.contains("ng-invalid")).toBe(true, 'The mail is invalid');
-        expect(passwordInput).not.toBeNull('You should have an input password');
-        expect(passwordInput.classList.contains("ng-invalid")).toBe(true, 'The password is invalid');
-        expect(componentInstance.validateForm.valid).toBe(false, 'The button should be enabled if the form is valid');
+        expect(componentInstance.validateForm.valid).toBe(true, 'Form is valid');
     });
-})
+
+    it('valid error response form', () => {
+        const fixture = TestBed.createComponent(LoginComponent);
+        fixture.detectChanges();
+
+        fakeAuthService.login.and.returnValue(throwError({ status: 401 }));
+
+        const element = fixture.nativeElement;
+
+        const mailInput = element.querySelector('[formcontrolname="mail"]');
+        mailInput.value = 'mail';
+        mailInput.dispatchEvent(new Event('input'));
+        const passwordInput = element.querySelector('[formcontrolname="password"]');
+        passwordInput.value = 'password';
+        passwordInput.dispatchEvent(new Event('input'));
+        const submitButton = element.querySelector('button');
+
+        fixture.detectChanges();
+        submitButton.click();
+
+        expect(fakeRouter.navigate).not.toHaveBeenCalledWith(['/']);
+    });
+
+    it('valid success response form', () => {
+        const fixture = TestBed.createComponent(LoginComponent);
+        fixture.detectChanges();
+
+        fakeAuthService.login.and.returnValue(of({ expiresIn: 'date', accessToken: 'token' }));
+
+        const element = fixture.nativeElement;
+
+        const mailInput = element.querySelector('[formcontrolname="mail"]');
+        mailInput.value = 'mail';
+        mailInput.dispatchEvent(new Event('input'));
+        const passwordInput = element.querySelector('[formcontrolname="password"]');
+        passwordInput.value = 'password';
+        passwordInput.dispatchEvent(new Event('input'));
+        const submitButton = element.querySelector('button');
+
+        fixture.detectChanges();
+        submitButton.click();
+
+        expect(fakeRouter.navigate).toHaveBeenCalledWith(['/']);
+    });
+});
