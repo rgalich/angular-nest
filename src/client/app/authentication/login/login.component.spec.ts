@@ -6,6 +6,7 @@ import { AuthenticationModule } from '../authentication.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormControlsService } from '../../core/service/form-controls.service';
 import { AuthService } from '../../service/auth.service';
+import {} from 'jasmine';
 
 describe('LoginComponent', () => {
 

@@ -20,11 +20,13 @@ export class AuthService {
     );
   }
 
-  expireAuthStorage() {
-      const authStorage = this.getAuthStorage();
-      if (authStorage && moment() > moment((JSON.parse(authStorage) as AuthTokenDto).expiresIn)) {
+  expireAuthStorage(authStorage: string) {
+      if (moment() > moment((JSON.parse(authStorage) as AuthTokenDto).expiresIn)) {
         this.removeAuthStorage();
+        return null;
       }
+
+      return authStorage;
   }
 
   setAuthStorage(authToken: AuthTokenDto) {
@@ -32,12 +34,7 @@ export class AuthService {
   }
 
   getAuthStorage() {
-    const authStorage = window.localStorage.getItem('rememberMe');
-    if (authStorage && moment() > moment((JSON.parse(authStorage) as AuthTokenDto).expiresIn)) {
-        this.removeAuthStorage();
-        return null;
-    }
-
+    const authStorage = this.expireAuthStorage(window.localStorage.getItem('rememberMe'));
     return authStorage ? (JSON.parse(authStorage) as AuthTokenDto).accessToken : null;
   }
 

@@ -6,6 +6,7 @@ import { UserLoginDto } from '../../../shared/dto/user/UserLoginDto';
 import { AuthTokenDto } from '../../../shared/dto/auth/AuthTokenDto';
 import * as moment from 'moment';
 import { environment } from '../../environments/environment';
+import {} from 'jasmine';
 
 describe('AuthService', () => {
     let httpClient: HttpClient;
@@ -29,7 +30,7 @@ describe('AuthService', () => {
         httpTestingController.verify();
     });
 
-    it('req login', () => {
+    it('login', () => {
         spyOn(authService, 'setAuthStorage');
 
         authService.login(user).subscribe();
@@ -37,6 +38,54 @@ describe('AuthService', () => {
         expect(req.request.body).toEqual(user);
         req.flush(authToken);
         expect(authService.setAuthStorage).toHaveBeenCalledWith(authToken);
+    });
+
+    it('setAuthStorage', () => {
+        spyOn(Storage.prototype, 'setItem');
+
+        authService.setAuthStorage(authToken);
+        expect(Storage.prototype.setItem).toHaveBeenCalledWith('rememberMe', JSON.stringify(authToken));
+    });
+
+    it('removeAuthStorage', () => {
+        spyOn(Storage.prototype, 'removeItem');
+
+        authService.removeAuthStorage();
+        expect(Storage.prototype.removeItem).toHaveBeenCalledWith('rememberMe');
+    });
+
+    it('Token expired', () => {
+        spyOn(authService, 'removeAuthStorage');
+        authToken.expiresIn = moment().add(-1, 'y').toISOString();
+        const storage = authService.expireAuthStorage(JSON.stringify(authToken));
+
+        expect(authService.removeAuthStorage).toHaveBeenCalled();
+        expect(storage).toBeNull('Token espired');
+    });
+
+    it('Token not expired', () => {
+        spyOn(authService, 'removeAuthStorage');
+        authToken.expiresIn = moment().add(1, 'y').toISOString();
+        const storage = authService.expireAuthStorage(JSON.stringify(authToken));
+
+        expect(authService.removeAuthStorage).not.toHaveBeenCalled();
+        expect(storage).toBe(JSON.stringify(authToken));
+    });
+
+    it('Not exist token', () => {
+        spyOn(authService, 'expireAuthStorage').and.returnValue(null);
+        const storage = authService.getAuthStorage();
+
+        expect(authService.expireAuthStorage).toHaveBeenCalled();
+        expect(storage).toBe(null);
+    });
+
+    it('Exist token', () => {
+        spyOn(authService, 'expireAuthStorage').and.returnValue(JSON.stringify(authToken));
+        const storage = authService.getAuthStorage();
+
+        expect(authService.expireAuthStorage).toHaveBeenCalled();
+        expect(storage).toBe(authToken.accessToken);
     });
 
 });
