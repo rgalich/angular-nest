@@ -28,7 +28,7 @@
       <div fxFlex fxLayoutAlign="end center">
         <nz-dropdown (nzVisibleChange)="isCollapsedProfil = $event" [nzPlacement]="'bottomRight'" class="pointer" [nzTrigger]="'click'">
           <div nz-dropdown>
-            <nz-avatar nzText="RG" nzSize="large"></nz-avatar>
+            <nz-avatar [nzText]="initialUserConnect" nzSize="large"></nz-avatar>
             <i class="icon" nz-icon [type]="iconProfil" theme="outline"></i>
           </div>
           <ul nz-menu>

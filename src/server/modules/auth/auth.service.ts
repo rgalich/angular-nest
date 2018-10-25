@@ -23,6 +23,7 @@ export class AuthService {
 
       const accessToken = this.jwtService.sign(jwtPayload);
       return {
+        user: { id: user.id, firstName: user.firstName, lastName: user.lastName, mail: user.mail },
         expiresIn: moment().add(+this.configService.get('EXPIRE_IN'), 's').toISOString(),
         accessToken
       };

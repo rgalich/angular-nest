@@ -6,17 +6,23 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { tap } from 'rxjs/operators';
 import * as moment from 'moment';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private userService: UserService) {
+    this.initUserConnect();
+  }
 
   login(user: UserLoginDto): Observable<AuthTokenDto> {
     return this.http.post<AuthTokenDto>(`${environment.baseUrl}/auth`, user).pipe(
-      tap(e => this.setAuthStorage(e))
+      tap(e => {
+        this.setAuthStorage(e);
+        this.userService.userConnect = e.user;
+      })
     );
   }
 
@@ -33,6 +39,11 @@ export class AuthService {
     window.localStorage.setItem('rememberMe', JSON.stringify(authToken));
   }
 
+  initUserConnect() {
+    const authStorage = this.expireAuthStorage(window.localStorage.getItem('rememberMe'));
+    this.userService.userConnect = authStorage ? (JSON.parse(authStorage) as AuthTokenDto).user : null;
+  }
+
   getAuthStorage() {
     const authStorage = this.expireAuthStorage(window.localStorage.getItem('rememberMe'));
     return authStorage ? (JSON.parse(authStorage) as AuthTokenDto).accessToken : null;
@@ -40,5 +51,6 @@ export class AuthService {
 
   removeAuthStorage() {
     window.localStorage.removeItem('rememberMe');
+    this.userService.userConnect = null;
   }
 }
