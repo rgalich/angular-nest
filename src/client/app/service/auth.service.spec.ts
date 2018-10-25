@@ -7,6 +7,7 @@ import { AuthTokenDto } from '../../../shared/dto/auth/AuthTokenDto';
 import * as moment from 'moment';
 import { environment } from '../../environments/environment';
 import {} from 'jasmine';
+import { UserDto } from '../../../shared/dto/user/UserDto';
 
 describe('AuthService', () => {
     let httpClient: HttpClient;
@@ -14,7 +15,8 @@ describe('AuthService', () => {
     let authService: AuthService;
 
     const user: UserLoginDto = { mail: 'test@test.test', password: 'test' };
-    const authToken: AuthTokenDto = { expiresIn: moment().toISOString(), accessToken: 'testtokken' };
+    const userDto: UserDto = { id: 1, firstName: 'firstNameTest', lastName: 'lastNameTest', mail: 'test@test.test' };
+    const authToken: AuthTokenDto = { user: userDto, expiresIn: moment().toISOString(), accessToken: 'testtokken' };
 
     beforeEach(() => {
         TestBed.configureTestingModule({
