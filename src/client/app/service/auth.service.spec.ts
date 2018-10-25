@@ -1,6 +1,6 @@
+import { UserService } from './user.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { UserLoginDto } from '../../../shared/dto/user/UserLoginDto';
 import { AuthTokenDto } from '../../../shared/dto/auth/AuthTokenDto';
@@ -10,9 +10,9 @@ import {} from 'jasmine';
 import { UserDto } from '../../../shared/dto/user/UserDto';
 
 describe('AuthService', () => {
-    let httpClient: HttpClient;
     let httpTestingController: HttpTestingController;
     let authService: AuthService;
+    let userService: UserService;
 
     const user: UserLoginDto = { mail: 'test@test.test', password: 'test' };
     const userDto: UserDto = { id: 1, firstName: 'firstNameTest', lastName: 'lastNameTest', mail: 'test@test.test' };
@@ -24,7 +24,7 @@ describe('AuthService', () => {
         });
 
         authService = TestBed.get(AuthService);
-        httpClient = TestBed.get(HttpClient);
+        userService = TestBed.get(UserService);
         httpTestingController = TestBed.get(HttpTestingController);
     });
 
@@ -88,6 +88,22 @@ describe('AuthService', () => {
 
         expect(authService.expireAuthStorage).toHaveBeenCalled();
         expect(storage).toBe(authToken.accessToken);
+    });
+
+    it('initUserConnect return user', () => {
+        spyOn(authService, 'expireAuthStorage').and.returnValue(JSON.stringify(authToken));
+        spyOnProperty(userService, 'userConnect');
+        authService.initUserConnect();
+
+        expect(userService.userConnect.id).toBe(userDto.id);
+    });
+
+    it('initUserConnect return null', () => {
+        spyOn(authService, 'expireAuthStorage').and.returnValue(null);
+        spyOnProperty(userService, 'userConnect');
+        authService.initUserConnect();
+
+        expect(userService.userConnect).toHaveBeenCalled();
     });
 
 });
