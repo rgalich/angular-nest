@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { NzDropdownService } from 'ng-zorro-antd';
-
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'app/service/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,15 +8,18 @@ import { NzDropdownService } from 'ng-zorro-antd';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   isCollapsed = false;
-  triggerTemplate = null;
-  @ViewChild('trigger') customTrigger: TemplateRef<void>;
+  isCollapsedProfil = false;
 
-  /** custom trigger can be TemplateRef **/
-  changeTrigger(): void {
-    this.triggerTemplate = this.customTrigger;
+  logout() {
+    this.authService.removeAuthStorage();
+    this.router.navigate(['/authentication']);
+  }
+
+  get iconProfil() {
+    return this.isCollapsedProfil ? 'up' : 'down';
   }
 
   ngOnInit() {

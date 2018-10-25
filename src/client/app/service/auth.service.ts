@@ -16,22 +16,21 @@ export class AuthService {
 
   login(user: UserLoginDto): Observable<AuthTokenDto> {
     return this.http.post<AuthTokenDto>(`${environment.baseUrl}/auth`, user).pipe(
-        tap(e => this.setAuthStorage(e))
+      tap(e => this.setAuthStorage(e))
     );
   }
 
   expireAuthStorage(authStorage: string) {
-      console.log(authStorage)
-      if (authStorage && moment() > moment((JSON.parse(authStorage) as AuthTokenDto).expiresIn)) {
-        this.removeAuthStorage();
-        return null;
-      }
+    if (authStorage && moment() > moment((JSON.parse(authStorage) as AuthTokenDto).expiresIn)) {
+      this.removeAuthStorage();
+      return null;
+    }
 
-      return authStorage;
+    return authStorage;
   }
 
   setAuthStorage(authToken: AuthTokenDto) {
-      window.localStorage.setItem('rememberMe', JSON.stringify(authToken));
+    window.localStorage.setItem('rememberMe', JSON.stringify(authToken));
   }
 
   getAuthStorage() {

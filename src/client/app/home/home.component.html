@@ -1,14 +1,13 @@
 <nz-layout fxFlexFill>
-  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate">
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed">
     <div class="logo">
     </div>
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu>
-        <span title><i nz-icon type="user"></i><span class="nav-text">User</span></span>
+        <span title><i nz-icon type="user"></i><span class="nav-text">Utilisateur</span></span>
         <ul>
-          <li nz-menu-item>Tom</li>
-          <li nz-menu-item>Bill</li>
-          <li nz-menu-item>Alex</li>
+          <li nz-menu-item>Liste</li>
+          <li nz-menu-item>Créer</li>
         </ul>
       </li>
       <li nz-submenu>
@@ -23,32 +22,19 @@
   </nz-sider>
   <nz-layout>
     <nz-header fxLayout="row" style="background: #fff; padding:0;">
-      <i class="trigger" nz-icon [type]="isCollapsed?'menu-unfold':'menu-fold'" (click)="isCollapsed=!isCollapsed"></i>
+      <div fxFlex fxLayoutAlign="start center">
+        <i class="icon" nz-icon [type]="isCollapsed?'menu-unfold':'menu-fold'" (click)="isCollapsed=!isCollapsed"></i>
+      </div>
       <div fxFlex fxLayoutAlign="end center">
-        <nz-dropdown [nzTrigger]="'click'">
+        <nz-dropdown (nzVisibleChange)="isCollapsedProfil = $event" [nzPlacement]="'bottomRight'" class="pointer" [nzTrigger]="'click'">
           <div nz-dropdown>
-            <button nz-button nzType="primary" nzSize="large" nzShape="circle">RG</button>
-            <button nz-button nzType="primary" nzSize="large" nzShape="circle">RG</button>
+            <nz-avatar nzText="RG" nzSize="large"></nz-avatar>
+            <i class="icon" nz-icon [type]="iconProfil" theme="outline"></i>
           </div>
           <ul nz-menu>
-            <li nz-menu-item>1st menu item</li>
-            <li nz-menu-item>2nd menu item</li>
+            <li nz-menu-item>Mon compte</li>
             <li nz-menu-divider></li>
-            <li nz-menu-item nzDisabled>disabled menu item</li>
-            <li nz-submenu>
-              <span title>sub menu</span>
-              <ul>
-                <li nz-menu-item>3rd menu item</li>
-                <li nz-menu-item>4th menu item</li>
-              </ul>
-            </li>
-            <li nz-submenu nzDisabled>
-              <span title>disabled sub menu</span>
-              <ul>
-                <li nz-menu-item>3rd menu item</li>
-                <li nz-menu-item>4th menu item</li>
-              </ul>
-            </li>
+            <li nz-menu-item (click)="logout()"><i nz-icon type="logout" theme="outline"></i>Se déconnecter</li>
           </ul>
         </nz-dropdown>
       </div>
@@ -65,6 +51,3 @@
     <nz-footer style="text-align: center;">Ant Design ©2017 Implement By Angular</nz-footer>
   </nz-layout>
 </nz-layout>
-<ng-template #trigger>
-  <i nz-icon type="up"></i>
-</ng-template>
