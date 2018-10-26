@@ -40,6 +40,7 @@ describe('AuthService', () => {
         expect(req.request.body).toEqual(user);
         req.flush(authToken);
         expect(authService.setAuthStorage).toHaveBeenCalledWith(authToken);
+        expect(userService.userConnect).toBe(authToken.user);
     });
 
     it('setAuthStorage', () => {
@@ -54,6 +55,7 @@ describe('AuthService', () => {
 
         authService.removeAuthStorage();
         expect(Storage.prototype.removeItem).toHaveBeenCalledWith('rememberMe');
+        expect(userService.userConnect).toBeNull();
     });
 
     it('Token expired', () => {
@@ -92,7 +94,6 @@ describe('AuthService', () => {
 
     it('initUserConnect return user', () => {
         spyOn(authService, 'expireAuthStorage').and.returnValue(JSON.stringify(authToken));
-        spyOnProperty(userService, 'userConnect');
         authService.initUserConnect();
 
         expect(userService.userConnect.id).toBe(userDto.id);
@@ -100,10 +101,9 @@ describe('AuthService', () => {
 
     it('initUserConnect return null', () => {
         spyOn(authService, 'expireAuthStorage').and.returnValue(null);
-        spyOnProperty(userService, 'userConnect');
         authService.initUserConnect();
 
-        expect(userService.userConnect).toHaveBeenCalled();
+        expect(userService.userConnect).toBeNull();
     });
 
 });

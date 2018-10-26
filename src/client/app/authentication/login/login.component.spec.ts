@@ -24,7 +24,7 @@ describe('LoginComponent', () => {
                 { provide: AuthService, useValue: fakeAuthService },
                 { provide: Router, useValue: fakeRouter },
                 { provide: FormControlsService, useValue: fakeFormControlsService },
-              ]
+            ]
         });
     });
 

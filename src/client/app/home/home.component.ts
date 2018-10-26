@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/service/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from 'app/service/user.service';
-import { UserDto } from '../../../shared/dto/user/UserDto';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -21,8 +20,9 @@ export class HomeComponent implements OnInit {
   }
 
   get initialUserConnect() {
-    return this.userService.userConnect ? this.userService.userConnect.firstName.charAt(0).toUpperCase() +
-    this.userService.userConnect.lastName.charAt(0).toUpperCase() : null;
+    return this.userService.userConnect && this.userService.userConnect.firstName && this.userService.userConnect.lastName
+            ? this.userService.userConnect.firstName.charAt(0).toUpperCase() +
+            this.userService.userConnect.lastName.charAt(0).toUpperCase() : null;
   }
 
   get iconProfil() {
