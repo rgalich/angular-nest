@@ -21,7 +21,7 @@ export class AuthService {
     if (user && await this.bcryptService.compareHash(userLogin.password, user.password)) {
       const jwtPayload: JwtPayload = { mail: user.mail };
 
-      const accessToken = this.jwtService.sign(jwtPayload);
+      const accessToken = this.jwtService.sign(jwtPayload, { expiresIn: +this.configService.get('EXPIRE_IN') });
       return {
         user: { id: user.id, firstName: user.firstName, lastName: user.lastName, mail: user.mail },
         expiresIn: moment().add(+this.configService.get('EXPIRE_IN'), 's').toISOString(),

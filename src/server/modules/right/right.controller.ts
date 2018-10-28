@@ -10,7 +10,7 @@ export class RightController {
     constructor(private readonly rightService: RightService) {}
 
     @Get()
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuard())
     async findRightAndRightGroupAll(): Promise<AllRightAndRightGroupDto> {
         const rights = await this.rightService.findAllRight();
         const rightGroups = await this.rightService.findAllRightGroup();

@@ -12,14 +12,12 @@ import { ConfigService } from '../config/config.service';
 @Module({
   imports: [
     ServiceModule,
+    ConfigModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         secretOrPrivateKey: configService.get('SECRET_KEY'),
-        signOptions: {
-          expiresIn: configService.get('EXPIRE_IN'),
-        },
       }),
       inject: [ConfigService],
     }),
