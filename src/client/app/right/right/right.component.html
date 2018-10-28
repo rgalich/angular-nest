@@ -1,3 +1,13 @@
-<p>
-  right works!
-</p>
+{{ toto }}
+<nz-table #nzTable [nzData]="rightGroups" [nzFrontPagination]="false" [nzShowPagination]="false" [nzScroll]="{ y: '200px' }">
+  <thead>
+    <tr>
+      <th>Nom</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rightGroup of nzTable.data">
+      <td>{{ rightGroup.libelle }}</td>
+    </tr>
+  </tbody>
+</nz-table>

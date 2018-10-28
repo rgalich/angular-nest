@@ -7,7 +7,7 @@ import { RightResolveGuard } from 'app/resolvers/right.resolver';
 const routes: Routes = [
   { path: '', component: HomeComponent, children:
     [
-      { path: 'right', component: RightComponent, resolve: { rightsRightGroups: RightResolveGuard } }
+      { path: 'rightgroups', component: RightComponent, resolve: { rightGroups: RightResolveGuard } }
     ]
   },
 ];

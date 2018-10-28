@@ -1,4 +1,4 @@
-import { AllRightAndRightGroupDto } from './../../../shared/dto/right/all-right-and-right-group.dto';
+import { RightGroupDto } from './../../../shared/dto/right/right-group.dto';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ export class RightService {
 
   constructor(private http: HttpClient) { }
 
-  findAllRightAndRightGroup(): Observable<AllRightAndRightGroupDto> {
-    return this.http.get<AllRightAndRightGroupDto>(`${environment.baseUrl}/right`);
+  findAllRightGroup(): Observable<RightGroupDto[]> {
+    return this.http.get<RightGroupDto[]>(`${environment.baseUrl}/right/rightgroups`);
   }
 }

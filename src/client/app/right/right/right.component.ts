@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AllRightAndRightGroupDto } from '../../../../shared/dto/right/all-right-and-right-group.dto';
+import { RightGroupDto } from '../../../../shared/dto/right/right-group.dto';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,13 +9,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RightComponent implements OnInit {
 
-  rightsRightGroups: AllRightAndRightGroupDto;
+  rightGroups: RightGroupDto;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.rightsRightGroups = this.route.snapshot.data['rightsRightGroups'];
-    console.log(this.rightsRightGroups);
+    this.rightGroups = this.route.snapshot.data['rightGroups'];
+    console.log(this.rightGroups);
   }
 
 }
