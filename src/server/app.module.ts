@@ -1,3 +1,4 @@
+import { RightModule } from './modules/right/right.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -13,6 +14,7 @@ import { ConfigModule } from './modules/config/config.module';
     TypeOrmModule.forRoot(),
     UserModule,
     AuthModule,
+    RightModule,
     ServiceModule,
     ConfigModule,
     PassportModule.register({ defaultStrategy: 'jwt' })

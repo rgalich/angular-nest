@@ -18,7 +18,7 @@ export class AuthService {
 
   async createToken(userLogin: UserLoginDto): Promise<AuthTokenDto> {
     const user = await this.userService.findByMail(userLogin.mail);
-    if (user && this.bcryptService.compareHash(userLogin.password, user.password)) {
+    if (user && await this.bcryptService.compareHash(userLogin.password, user.password)) {
       const jwtPayload: JwtPayload = { mail: user.mail };
 
       const accessToken = this.jwtService.sign(jwtPayload);

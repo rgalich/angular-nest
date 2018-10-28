@@ -9,6 +9,7 @@ export class UserController {
     constructor(private readonly userService: UserService) {}
 
   @Get()
+  @UseGuards(AuthGuard())
   async findAll() {
     return await this.userService.findAll();
   }

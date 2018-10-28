@@ -13,5 +13,13 @@ export class RightService {
     private readonly rightGroupRepository: Repository<RightGroup>
   ) {}
 
+  async findAllRight() {
+    return await this.rightRepository.find({ order: { libelle: 'ASC' } });
+  }
+
+  async findAllRightGroup() {
+    return await this.rightGroupRepository.find({ order: { libelle: 'ASC' } });
+  }
+
 
 }
