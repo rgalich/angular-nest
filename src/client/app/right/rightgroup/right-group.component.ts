@@ -4,10 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-right',
-  templateUrl: './right.component.html',
-  styleUrls: ['./right.component.css']
+  templateUrl: './right-group.component.html',
+  styleUrls: ['./right-group.component.css']
 })
-export class RightComponent implements OnInit {
+export class RightGroupComponent implements OnInit {
 
   rightGroups: RightGroupDto;
 

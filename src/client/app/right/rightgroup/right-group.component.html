@@ -1,0 +1,19 @@
+<div fxLayout="column">
+  <nz-table #nzTable [nzData]="rightGroups" [nzFrontPagination]="false" [nzShowPagination]="false" [nzScroll]="{ y: 'calc(100vh - 236px)' }">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th nzWidth="50px"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rightGroup of nzTable.data">
+        <td>{{ rightGroup.libelle }}</td>
+        <td><button nz-button nzType="primary" [nzSize]="size" nzShape="circle" nzTitle="Modidier" nzPlacement="top" nz-tooltip><i nz-icon type="edit"></i></button></td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div fxFlex fxLayoutAlign="end center">
+    <button nz-button nzType="primary" [nzSize]="size" nzShape="circle" nzTitle="Créer" nzPlacement="top" nz-tooltip><i nz-icon type="plus"></i></button>
+  </div>
+</div>

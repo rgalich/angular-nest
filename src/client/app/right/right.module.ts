@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home.component';
-import { HomeRoutingModule } from './home-routing.module';
+import { RightGroupComponent } from './rightgroup/right-group.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { RightRoutingModule } from './right-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
     CommonModule,
-    HomeRoutingModule,
+    RightRoutingModule,
     NgZorroAntdModule,
     FlexLayoutModule
   ],
-  declarations: [HomeComponent]
+  declarations: [RightGroupComponent]
 })
-export class HomeModule { }
+export class RightModule { }
