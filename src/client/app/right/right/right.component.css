@@ -1,0 +1,25 @@
+.transfergtxs {
+    width: 100%;
+    text-align: center;
+}
+
+.transfergtxs ::ng-deep .ant-transfer-list {
+    width: 40%;
+    min-height: calc(100vh - 255px)
+}
+
+.transferxs {
+    width: 100%;
+    text-align: center;
+}
+
+.transferxs ::ng-deep .ant-transfer-list {
+    width: 100%;
+    min-height: calc(100vh - 576px)
+}
+
+.transferxs ::ng-deep .ant-transfer-operation {
+    transform: rotate(90deg);
+}
+
+
