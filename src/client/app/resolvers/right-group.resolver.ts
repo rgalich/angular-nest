@@ -1,5 +1,5 @@
-import { RightDto } from './../../../shared/dto/right/right.dto';
 import { RightService } from '../service/right.service';
+import { RightGroupDto } from '../../../shared/dto/right/right-group.dto';
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root'
   })
-export class RightResolveGuard implements Resolve<RightDto[]> {
+export class RightGroupResolveGuard implements Resolve<RightGroupDto[]> {
 
     constructor(private rightService: RightService) {}
 
-    resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<RightDto[]> {
-        return this.rightService.findAllRight();
+    resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<RightGroupDto[]> {
+        return this.rightService.findAllRightGroup();
     }
 }

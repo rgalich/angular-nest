@@ -3,10 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { RightGroupComponent } from './rightgroup/right-group.component';
 import { RightResolveGuard } from 'app/resolvers/right.resolver';
 import { RightComponent } from './right/right.component';
+import { RightGroupResolveGuard } from 'app/resolvers/right-group.resolver';
 
 const routes: Routes = [
-  { path: 'list', component: RightGroupComponent, resolve: { rightGroups: RightResolveGuard } },
-  { path: 'create', component: RightComponent }
+  { path: 'list', component: RightGroupComponent, resolve: { rightGroups: RightGroupResolveGuard } },
+  { path: 'create', component: RightComponent, resolve: { rights: RightResolveGuard } }
 ];
 
 @NgModule({

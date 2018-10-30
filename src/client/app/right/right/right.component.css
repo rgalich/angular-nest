@@ -22,4 +22,8 @@
     transform: rotate(90deg);
 }
 
+:host ::ng-deep .ant-transfer-list-content-item {
+    text-align: left;
+}
+
 

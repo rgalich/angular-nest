@@ -16,4 +16,11 @@ export class RightController {
     async findAllRightGroup(): Promise<RightGroupDto[]> {
         return await this.rightService.findAllRightGroup();
     }
+
+    @ApiBearerAuth()
+    @Get('rights')
+    @UseGuards(AuthGuard())
+    async findAllRight(): Promise<RightGroupDto[]> {
+        return await this.rightService.findAllRight();
+    }
 }

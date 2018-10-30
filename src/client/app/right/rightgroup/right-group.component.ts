@@ -15,7 +15,6 @@ export class RightGroupComponent implements OnInit {
 
   ngOnInit() {
     this.rightGroups = this.route.snapshot.data['rightGroups'];
-    console.log(this.rightGroups);
   }
 
 }

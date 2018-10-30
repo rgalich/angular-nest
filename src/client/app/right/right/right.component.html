@@ -13,12 +13,12 @@
       <nz-transfer
         ngClass.gt-xs="transfergtxs"
         ngClass.xs="transferxs"
-        [nzDataSource]="list"
+        [nzDataSource]="transfertSource"
         nzShowSearch
-        [nzFilterOption]="filterOption"
         (nzSearchChange)="search($event)"
         (nzSelectChange)="select($event)"
-        (nzChange)="change($event)">
+        (nzChange)="change($event)"
+      >
       </nz-transfer>
     </div>
   </div>
