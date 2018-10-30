@@ -15,7 +15,7 @@
 
 .transferxs ::ng-deep .ant-transfer-list {
     width: 100%;
-    min-height: calc(100vh - 576px)
+    min-height: calc(100vh - 570px)
 }
 
 .transferxs ::ng-deep .ant-transfer-operation {
