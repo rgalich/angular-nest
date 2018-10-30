@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path: '', component: HomeComponent, children:
     [
-      { path: 'rightgroups', loadChildren: 'app/right/right.module#RightModule' }
+      { path: 'right', loadChildren: 'app/right/right.module#RightModule' }
     ]
   },
 ];

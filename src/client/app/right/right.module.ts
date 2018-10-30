@@ -4,6 +4,7 @@ import { RightGroupComponent } from './rightgroup/right-group.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { RightRoutingModule } from './right-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RightComponent } from './right/right.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     NgZorroAntdModule,
     FlexLayoutModule
   ],
-  declarations: [RightGroupComponent]
+  declarations: [RightGroupComponent, RightComponent]
 })
 export class RightModule { }

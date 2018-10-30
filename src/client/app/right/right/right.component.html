@@ -1,0 +1,24 @@
+<form nz-form>
+    <div fxLayout="column" fxLayoutAlign="stretch">
+    <div fxFlex="100%">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="libelle">Nom du groupe</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input formControlName="libelle" id="libelle">
+          <!-- <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">The input is not valid E-mail!</nz-form-explain> -->
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div fxFlex="100%" fxLayoutAlign="center">
+      <nz-transfer
+        [nzListStyle]="{'min-height': 'calc(100vh - 250px)'}"
+        [nzDataSource]="list"
+        nzShowSearch
+        [nzFilterOption]="filterOption"
+        (nzSearchChange)="search($event)"
+        (nzSelectChange)="select($event)"
+        (nzChange)="change($event)">
+      </nz-transfer>
+    </div>
+  </div>
+</form>

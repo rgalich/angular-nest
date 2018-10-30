@@ -1,5 +1,5 @@
 <div fxLayout="column">
-  <nz-table #nzTable [nzData]="rightGroups" [nzFrontPagination]="false" [nzShowPagination]="false" [nzScroll]="{ y: 'calc(100vh - 236px)' }">
+  <nz-table #nzTable [nzData]="rightGroups" [nzFrontPagination]="false" [nzShowPagination]="false" [nzScroll]="{ y: 'calc(100vh - 240px)' }">
     <thead>
       <tr>
         <th>Nom</th>
@@ -9,11 +9,11 @@
     <tbody>
       <tr *ngFor="let rightGroup of nzTable.data">
         <td>{{ rightGroup.libelle }}</td>
-        <td><button nz-button nzType="primary" [nzSize]="size" nzShape="circle" nzTitle="Modidier" nzPlacement="top" nz-tooltip><i nz-icon type="edit"></i></button></td>
+        <td><button nz-button nzType="primary" nzSize="size" nzShape="circle" nzTitle="Modidier" nzPlacement="top" nz-tooltip><i nz-icon type="edit"></i></button></td>
       </tr>
     </tbody>
   </nz-table>
   <div fxFlex fxLayoutAlign="end center">
-    <button nz-button nzType="primary" [nzSize]="size" nzShape="circle" nzTitle="Créer" nzPlacement="top" nz-tooltip><i nz-icon type="plus"></i></button>
+    <button routerLink="/right/create" nz-button nzType="primary" nzSize="size" nzShape="circle" nzTitle="Créer" nzPlacement="top" nz-tooltip><i nz-icon type="plus"></i></button>
   </div>
 </div>

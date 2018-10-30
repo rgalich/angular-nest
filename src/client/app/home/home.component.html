@@ -1,4 +1,4 @@
-<nz-layout fxFlexFill>
+<nz-layout>
   <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed">
     <div class="logo">
     </div>
@@ -6,7 +6,7 @@
       <li nz-submenu>
         <span title><i nz-icon type="user"></i><span class="nav-text">Utilisateur</span></span>
         <ul>
-          <li nz-menu-item [routerLink]="['/rightgroups']">Liste</li>
+          <li nz-menu-item [routerLink]="['/right/list']">Liste</li>
           <li nz-menu-item>Créer</li>
         </ul>
       </li>
@@ -44,7 +44,7 @@
         <nz-breadcrumb-item>User</nz-breadcrumb-item>
         <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
       </nz-breadcrumb>
-      <div fxFlex="grow" style="background: #fff;">
+      <div style="background: #fff; min-height: calc(100vh - 186px);">
         <router-outlet></router-outlet>
       </div>
     </nz-content>

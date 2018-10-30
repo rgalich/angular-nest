@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NZ_I18N, fr_FR } from 'ng-zorro-antd';
+import { fr_FR, NZ_I18N, NgZorroAntdModule } from 'ng-zorro-antd';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app-routing.modules';
 import { AppComponent } from './app.component';
@@ -18,14 +18,15 @@ import { NotLoggedGuard } from './guards/notlogged.guard';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NgZorroAntdModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [
     LoggedGuard,
     NotLoggedGuard,
-    { provide: NZ_I18N, useValue: fr_FR },
-    { provide: HTTP_INTERCEPTORS, useExisting: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useExisting: JwtInterceptor, multi: true },
+    { provide: NZ_I18N, useValue: fr_FR }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
