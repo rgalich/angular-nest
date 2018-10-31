@@ -12,6 +12,7 @@
           ngClass.gt-xs="transfergtxs"
           ngClass.xs="transferxs"
           [nzDataSource]="transfertSource"
+          (nzChange)="change($event)"
           nzShowSearch
         >
         </nz-transfer>

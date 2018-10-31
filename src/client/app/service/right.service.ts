@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { RightDto } from '../../../shared/dto/right/right.dto';
+import { RightGroupCreateDto } from '../../../shared/dto/right/right-group-create.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,9 @@ export class RightService {
 
   findAllRight(): Observable<RightDto[]> {
     return this.http.get<RightDto[]>(`${environment.baseUrl}/right/rights`);
+  }
+
+  create(rightGroup: RightGroupCreateDto): Observable<RightGroupCreateDto> {
+    return this.http.post<RightGroupCreateDto>(`${environment.baseUrl}/right`, rightGroup);
   }
 }

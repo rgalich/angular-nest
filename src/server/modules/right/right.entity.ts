@@ -7,4 +7,8 @@ export class Right {
 
   @Column({ length: 500, nullable: false })
   libelle: string;
+
+  constructor(id: number) {
+    this.id = id;
+  }
 }

@@ -4,7 +4,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
 import { RightService } from './right.service';
 import _ from 'lodash';
-import { Right } from './right.entity';
+import { RightGroupCreateDto } from 'shared/dto/right/right-group-create.dto';
 
 @Controller('right')
 export class RightController {
@@ -22,5 +22,12 @@ export class RightController {
     @UseGuards(AuthGuard())
     async findAllRight(): Promise<RightGroupDto[]> {
         return await this.rightService.findAllRight();
+    }
+
+    @ApiBearerAuth()
+    @Post()
+    @UseGuards(AuthGuard())
+    async create(@Body() rightGroup: RightGroupCreateDto) {
+        return this.rightService.create(rightGroup);
     }
 }
