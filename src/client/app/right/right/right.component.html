@@ -1,25 +1,25 @@
-<form nz-form>
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
     <div fxLayout="column" fxLayoutAlign="stretch">
-    <div fxFlex="100%">
-      <nz-form-item>
+      <nz-form-item fxFlex="100%">
         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="libelle">Nom du groupe</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24">
           <input nz-input formControlName="libelle" id="libelle">
-          <!-- <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">The input is not valid E-mail!</nz-form-explain> -->
+          <nz-form-explain *ngIf="validateForm.get('libelle').dirty && validateForm.get('libelle').errors">Le nom du groupe utilisateur est obligatoire!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
-    </div>
-    <div fxFlex="100%" fxLayoutAlign="center">
-      <nz-transfer
-        ngClass.gt-xs="transfergtxs"
-        ngClass.xs="transferxs"
-        [nzDataSource]="transfertSource"
-        nzShowSearch
-        (nzSearchChange)="search($event)"
-        (nzSelectChange)="select($event)"
-        (nzChange)="change($event)"
-      >
-      </nz-transfer>
-    </div>
+      <nz-form-item fxFlex="100%" fxLayoutAlign="center">
+        <nz-transfer
+          ngClass.gt-xs="transfergtxs"
+          ngClass.xs="transferxs"
+          [nzDataSource]="transfertSource"
+          nzShowSearch
+        >
+        </nz-transfer>
+      </nz-form-item>
+      <nz-divider></nz-divider>
+      <div fxFlex="100%" fxLayoutAlign="end">
+        <button (click)="resetForm($event)" nz-button nzType="primary">Annuler</button>
+        <button nz-button nzType="primary">Créer</button>
+      </div>
   </div>
 </form>

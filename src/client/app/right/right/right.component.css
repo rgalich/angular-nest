@@ -26,4 +26,8 @@
     text-align: left;
 }
 
+:host ::ng-deep .ant-divider {
+    margin: unset;
+}
+
 

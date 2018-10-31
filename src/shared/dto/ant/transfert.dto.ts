@@ -5,14 +5,15 @@ export class TransfertDto {
 
     title: string;
 
-    direction = 'right';
+    direction: 'right' | 'left';
 
     disabled = false;
 
     checked = false;
 
-    constructor(item: RightDto) {
+    constructor(item: RightDto, direction: 'right' | 'left') {
         this.id = item.id;
         this.title = item.libelle;
+        this.direction = direction;
     }
 }
