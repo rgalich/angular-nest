@@ -9,7 +9,7 @@
     <tbody>
       <tr *ngFor="let rightGroup of nzTable.data">
         <td>{{ rightGroup.libelle }}</td>
-        <td><button nz-button nzType="primary" nzSize="size" nzShape="circle" nzTitle="Modidier" nzPlacement="top" nz-tooltip><i nz-icon type="edit"></i></button></td>
+        <td><button [routerLink]="['/right', rightGroup.id]" nz-button nzType="primary" nzSize="size" nzShape="circle" nzTitle="Modidier" nzPlacement="top" nz-tooltip><i nz-icon type="edit"></i></button></td>
       </tr>
     </tbody>
   </nz-table>

@@ -1,3 +1,4 @@
+import { RightGroupDetailDto } from './../../../shared/dto/right/right-group-detail.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -22,10 +23,25 @@ export class RightService {
     return await this.rightGroupRepository.find({ order: { libelle: 'ASC' } });
   }
 
+  async findRightGroupById(rightGroupId: number) {
+    return await this.rightGroupRepository.findOneOrFail(rightGroupId, { relations: ['rights'] });
+  }
+
   async create(createRightGroup: RightGroupCreateDto) {
     const rightGroup = new RightGroup();
     rightGroup.libelle = createRightGroup.libelle;
-    rightGroup.Rights = createRightGroup.rightsId.map(e => new Right(e));
+    rightGroup.rights = createRightGroup.rightsId.map(e => new Right(e));
     return await this.rightGroupRepository.save(rightGroup);
+  }
+
+  async findRightGroupDetail(rightGroupId: number) {
+    const rightGroupDetail = new RightGroupDetailDto();
+    const rightGroup = await this.findRightGroupById(rightGroupId);
+    const rights = await this.findAllRight();
+    rightGroupDetail.id = rightGroup.id;
+    rightGroupDetail.libelle = rightGroup.libelle;
+    rightGroupDetail.rightsId = rightGroup.rights.map(e => e.id);
+    rightGroupDetail.rights = rights;
+    return rightGroupDetail;
   }
 }

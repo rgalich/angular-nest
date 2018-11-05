@@ -1,3 +1,4 @@
+import { RightGroupDetailDto } from './../../../shared/dto/right/right-group-detail.dto';
 import { RightGroupDto } from './../../../shared/dto/right/right-group.dto';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -19,6 +20,10 @@ export class RightService {
 
   findAllRight(): Observable<RightDto[]> {
     return this.http.get<RightDto[]>(`${environment.baseUrl}/right/rights`);
+  }
+
+  findRightGroupDetail(rightGroupId: number): Observable<RightGroupDetailDto> {
+    return this.http.get<RightGroupDetailDto>(`${environment.baseUrl}/right/rightgroup/${rightGroupId}`);
   }
 
   create(rightGroup: RightGroupCreateDto): Observable<RightGroupCreateDto> {

@@ -9,6 +9,7 @@ import { FormControlsService } from 'app/core/service/form-controls.service';
 import { RightService } from 'app/service/right.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Location } from '@angular/common';
+import { RightGroupDetailDto } from '../../../../shared/dto/right/right-group-detail.dto';
 
 @Component({
   selector: 'app-right',
@@ -19,7 +20,8 @@ export class RightComponent implements OnInit {
 
   validateForm: FormGroup;
   rights: RightDto[];
-  transfertSource: TransfertDto[];
+  rightGroupDetail: RightGroupDetailDto;
+  transfertSource: TransfertDto[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -31,7 +33,14 @@ export class RightComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.rights = this.route.snapshot.data['rights'];
+    if (this.route.snapshot.data['rightGroupDetail']) {
+      this.rightGroupDetail = this.route.snapshot.data['rightGroupDetail'];
+      console.log(this.rightGroupDetail);
+      this.rights = this.rightGroupDetail.rights;
+    } else {
+      this.rights = this.route.snapshot.data['rights'];
+    }
+
     this.transfertSource = this.rights.map(e => new TransfertDto(e, 'right'));
 
     this.validateForm = this.fb.group({

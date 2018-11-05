@@ -7,7 +7,8 @@ import { RightGroupResolveGuard } from 'app/resolvers/right-group.resolver';
 
 const routes: Routes = [
   { path: 'list', component: RightGroupComponent, resolve: { rightGroups: RightGroupResolveGuard } },
-  { path: 'create', component: RightComponent, resolve: { rights: RightResolveGuard } }
+  { path: 'create', component: RightComponent, resolve: { rights: RightResolveGuard } },
+  { path: ':rightGroupId', component: RightComponent, resolve: { rightGroupDetail: RightResolveGuard } },
 ];
 
 @NgModule({

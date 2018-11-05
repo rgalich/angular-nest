@@ -1,10 +1,11 @@
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { RightGroupDto } from './../../../shared/dto/right/right-group.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Param } from '@nestjs/common';
 import { RightService } from './right.service';
 import _ from 'lodash';
 import { RightGroupCreateDto } from 'shared/dto/right/right-group-create.dto';
+import { RightGroupDetailDto } from 'shared/dto/right/right-group-detail.dto';
 
 @Controller('right')
 export class RightController {
@@ -22,6 +23,13 @@ export class RightController {
     @UseGuards(AuthGuard())
     async findAllRight(): Promise<RightGroupDto[]> {
         return await this.rightService.findAllRight();
+    }
+
+    @ApiBearerAuth()
+    @Get('rightgroup/:id')
+    @UseGuards(AuthGuard())
+    async findRightGroupDetail(@Param('id') id): Promise<RightGroupDetailDto> {
+        return await this.rightService.findRightGroupDetail(id);
     }
 
     @ApiBearerAuth()

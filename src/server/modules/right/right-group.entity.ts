@@ -11,5 +11,5 @@ export class RightGroup {
 
   @ManyToMany(type => Right)
   @JoinTable({ name: 'right_group_right' })
-  Rights: Right[];
+  rights: Right[];
 }
