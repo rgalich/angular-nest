@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/service/auth.service';
-import { Router } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { UserService } from 'app/service/user.service';
+import { JwtInterceptor } from 'app/interceptors/jwt.interceptor';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,7 +10,11 @@ import { UserService } from 'app/service/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private userService: UserService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private userService: UserService,
+    private jwtInterceptor: JwtInterceptor) { }
 
   isCollapsed = false;
   isCollapsedProfil = false;
@@ -30,7 +35,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.findAll().subscribe();
+
   }
 
+  get loading() {
+    return this.jwtInterceptor.loading;
+  }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../service/auth.service';
-import { Router } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { ErrorHandler } from '@angular/router/src/router';
@@ -11,7 +11,19 @@ import { ErrorHandler } from '@angular/router/src/router';
 })
 export class JwtInterceptor implements HttpInterceptor {
 
-    constructor(private authService: AuthService, private router: Router) {}
+    loading = false;
+
+    constructor(private authService: AuthService, private router: Router) {
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationStart) {
+                this.loading = true;
+            }
+
+            if (event instanceof NavigationEnd) {
+                this.loading = false;
+            }
+        });
+    }
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         const token = this.authService.getAuthStorage();
