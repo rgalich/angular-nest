@@ -1,3 +1,7 @@
 .pointer {
     cursor: pointer;
 }
+
+.mr-small {
+    margin-right: 5px;
+}

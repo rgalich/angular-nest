@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FormControlsService } from 'app/core/service/form-controls.service';
 import { RightService } from 'app/service/right.service';
 import { NzMessageService } from 'ng-zorro-antd';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-right',
@@ -22,6 +23,7 @@ export class RightComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private location: Location,
     private fb: FormBuilder,
     private formControlsService: FormControlsService,
     private rightService: RightService,
@@ -48,12 +50,16 @@ export class RightComponent implements OnInit {
       const rightGroupCreate = new RightGroupCreateDto();
       rightGroupCreate.libelle = this.validateForm.value.libelle;
       rightGroupCreate.rightsId = this.transfertSource.filter(e => e.direction === 'left').map(e => e.id);
-      this.rightService.create(rightGroupCreate).subscribe(() => this.message.create('success', 'Le groupe utilisateur est créé'));
+      this.rightService.create(rightGroupCreate).subscribe(() => {
+        this.message.create('success', 'Le groupe utilisateur est créé');
+        this.location.back();
+      });
     }
   }
 
-  resetForm(event) {
+  previousRoute(event) {
     event.preventDefault();
+    this.location.back();
   }
 
 }

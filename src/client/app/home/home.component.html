@@ -1,53 +1,55 @@
-<nz-layout>
-  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed">
-    <div class="logo">
-    </div>
-    <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu>
-        <span title><i nz-icon type="user"></i><span class="nav-text">Utilisateur</span></span>
-        <ul>
-          <li nz-menu-item [routerLink]="['/right/list']">Liste</li>
-          <li nz-menu-item>Créer</li>
-        </ul>
-      </li>
-      <li nz-submenu>
-        <span title><i nz-icon type="yuque"></i><span class="nav-text">Team</span></span>
-        <ul>
-          <li nz-menu-item>Team 1</li>
-          <li nz-menu-item>Team 2</li>
-        </ul>
-      </li>
-      <li nz-menu-item><span><i nz-icon type="file"></i><span class="nav-text">File</span></span></li>
-    </ul>
-  </nz-sider>
+<nz-spin>
   <nz-layout>
-    <nz-header fxLayout="row" style="background: #fff; padding:0;">
-      <div fxFlex fxLayoutAlign="start center">
-        <i class="icon" nz-icon [type]="isCollapsed?'menu-unfold':'menu-fold'" (click)="isCollapsed=!isCollapsed"></i>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed">
+      <div class="logo">
       </div>
-      <div fxFlex fxLayoutAlign="end center">
-        <nz-dropdown (nzVisibleChange)="isCollapsedProfil = $event" [nzPlacement]="'bottomRight'" class="pointer" [nzTrigger]="'click'">
-          <div nz-dropdown>
-            <nz-avatar [nzText]="initialUserConnect" nzSize="large"></nz-avatar>
-            <i class="icon" nz-icon [type]="iconProfil" theme="outline"></i>
-          </div>
-          <ul nz-menu>
-            <li nz-menu-item>Mon compte</li>
-            <li nz-menu-divider></li>
-            <li nz-menu-item (click)="logout()"><i nz-icon type="logout" theme="outline"></i>Se déconnecter</li>
+      <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
+        <li nz-submenu>
+          <span title><i nz-icon type="user"></i><span class="nav-text">Utilisateur</span></span>
+          <ul>
+            <li nz-menu-item [routerLink]="['/right/list']">Liste</li>
+            <li nz-menu-item>Créer</li>
           </ul>
-        </nz-dropdown>
-      </div>
-    </nz-header>
-    <nz-content fxLayout="column" fxLayoutAlign="stretch" style="margin:0 16px;">
-      <nz-breadcrumb style="margin:16px 0;">
-        <nz-breadcrumb-item>User</nz-breadcrumb-item>
-        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-      </nz-breadcrumb>
-      <div style="background: #fff; min-height: calc(100vh - 186px);">
-        <router-outlet></router-outlet>
-      </div>
-    </nz-content>
-    <nz-footer style="text-align: center;">Ant Design ©2017 Implement By Angular</nz-footer>
+        </li>
+        <li nz-submenu>
+          <span title><i nz-icon type="yuque"></i><span class="nav-text">Team</span></span>
+          <ul>
+            <li nz-menu-item>Team 1</li>
+            <li nz-menu-item>Team 2</li>
+          </ul>
+        </li>
+        <li nz-menu-item><span><i nz-icon type="file"></i><span class="nav-text">File</span></span></li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-header fxLayout="row" style="background: #fff; padding:0;">
+        <div fxFlex fxLayoutAlign="start center">
+          <i class="icon" nz-icon [type]="isCollapsed?'menu-unfold':'menu-fold'" (click)="isCollapsed=!isCollapsed"></i>
+        </div>
+        <div fxFlex fxLayoutAlign="end center">
+          <nz-dropdown (nzVisibleChange)="isCollapsedProfil = $event" [nzPlacement]="'bottomRight'" class="pointer" [nzTrigger]="'click'">
+            <div nz-dropdown>
+              <nz-avatar [nzText]="initialUserConnect" nzSize="large"></nz-avatar>
+              <i class="icon" nz-icon [type]="iconProfil" theme="outline"></i>
+            </div>
+            <ul nz-menu>
+              <li nz-menu-item>Mon compte</li>
+              <li nz-menu-divider></li>
+              <li nz-menu-item (click)="logout()"><i nz-icon type="logout" theme="outline"></i>Se déconnecter</li>
+            </ul>
+          </nz-dropdown>
+        </div>
+      </nz-header>
+      <nz-content fxLayout="column" fxLayoutAlign="stretch" style="margin:0 16px;">
+        <nz-breadcrumb style="margin:16px 0;">
+          <nz-breadcrumb-item>User</nz-breadcrumb-item>
+          <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
+        </nz-breadcrumb>
+        <div style="background: #fff; min-height: calc(100vh - 186px);">
+          <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+      <nz-footer style="text-align: center;">Ant Design ©2017 Implement By Angular</nz-footer>
+    </nz-layout>
   </nz-layout>
-</nz-layout>
+</nz-spin>

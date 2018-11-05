@@ -18,8 +18,8 @@
         </nz-transfer>
       </nz-form-item>
       <nz-divider></nz-divider>
-      <div fxFlex="100%" fxLayoutAlign="end">
-        <button (click)="resetForm($event)" nz-button nzType="primary">Annuler</button>
+      <div fxLayout.xs="column" fxLayoutAlign.xs="stretch" fxLayoutAlign.gt-xs="end">
+        <button ngClass.gt-xs="mr-small" (click)="previousRoute($event)" nz-button nzType="default">Retour</button>
         <button nz-button nzType="primary">Créer</button>
       </div>
   </div>
