@@ -21,7 +21,8 @@ export class RightComponent implements OnInit {
   validateForm: FormGroup;
   rights: RightDto[];
   rightGroupDetail: RightGroupDetailDto;
-  transfertSource: TransfertDto[] = [];
+  transfertSource: TransfertDto[];
+  isEdit = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,17 +35,22 @@ export class RightComponent implements OnInit {
 
   ngOnInit() {
     if (this.route.snapshot.data['rightGroupDetail']) {
+      this.isEdit = true;
       this.rightGroupDetail = this.route.snapshot.data['rightGroupDetail'];
-      console.log(this.rightGroupDetail);
       this.rights = this.rightGroupDetail.rights;
+      this.transfertSource = this.rights.map(
+        right => new TransfertDto(
+          right,
+          this.rightGroupDetail.rightsId.find(rightId => rightId === right.id) ? 'left' : 'right'
+        )
+      );
     } else {
       this.rights = this.route.snapshot.data['rights'];
+      this.transfertSource = this.rights.map(e => new TransfertDto(e, 'right'));
     }
 
-    this.transfertSource = this.rights.map(e => new TransfertDto(e, 'right'));
-
     this.validateForm = this.fb.group({
-      libelle: [ '', [ Validators.required ] ]
+      libelle: [ this.rightGroupDetail ? this.rightGroupDetail.libelle : '' , [ Validators.required ] ]
     });
   }
 
@@ -60,7 +66,7 @@ export class RightComponent implements OnInit {
       rightGroupCreate.libelle = this.validateForm.value.libelle;
       rightGroupCreate.rightsId = this.transfertSource.filter(e => e.direction === 'left').map(e => e.id);
       this.rightService.create(rightGroupCreate).subscribe(() => {
-        this.message.create('success', 'Le groupe utilisateur est créé');
+        this.message.create('success', this.libelleMessageSubmit);
         this.location.back();
       });
     }
@@ -69,6 +75,14 @@ export class RightComponent implements OnInit {
   previousRoute(event) {
     event.preventDefault();
     this.location.back();
+  }
+
+  get libelleButtonSubmit() {
+    return this.isEdit ? 'Modifier' : 'Créer';
+  }
+
+  get libelleMessageSubmit() {
+    return `Le groupe utilisateur est modifié ${this.isEdit ? 'modifié' : 'créé'}.`;
   }
 
 }
