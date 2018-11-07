@@ -63,6 +63,7 @@ export class RightComponent implements OnInit {
     this.formControlsService.validateControls(this.validateForm.controls);
     if (this.validateForm.valid) {
       const rightGroupCreate = new RightGroupCreateDto();
+      rightGroupCreate.id = this.rightGroupDetail ? this.rightGroupDetail.id : 0;
       rightGroupCreate.libelle = this.validateForm.value.libelle;
       rightGroupCreate.rightsId = this.transfertSource.filter(e => e.direction === 'left').map(e => e.id);
       this.rightService.create(rightGroupCreate).subscribe(() => {
@@ -82,7 +83,7 @@ export class RightComponent implements OnInit {
   }
 
   get libelleMessageSubmit() {
-    return `Le groupe utilisateur est modifié ${this.isEdit ? 'modifié' : 'créé'}.`;
+    return `Le groupe utilisateur est ${this.isEdit ? 'modifié' : 'créé'}.`;
   }
 
 }

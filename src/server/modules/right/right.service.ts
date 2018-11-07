@@ -29,6 +29,7 @@ export class RightService {
 
   async create(createRightGroup: RightGroupCreateDto) {
     const rightGroup = new RightGroup();
+    rightGroup.id = createRightGroup.id;
     rightGroup.libelle = createRightGroup.libelle;
     rightGroup.rights = createRightGroup.rightsId.map(e => new Right(e));
     return await this.rightGroupRepository.save(rightGroup);
