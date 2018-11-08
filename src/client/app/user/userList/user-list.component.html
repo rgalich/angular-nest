@@ -1,3 +1,22 @@
-<p>
-  list works!
-</p>
+<div fxLayout="column">
+  <nz-table #nzTable [nzData]="usersPagination.users" [nzLoading]="loading" [nzShowPagination]="false" [nzScroll]="{ y: 'calc(100vh - 240px)' }">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th nzWidth="50px"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of nzTable.data">
+        <td>{{ user.firstName }}</td>
+        <td><button nz-button nzType="primary" nzSize="size" nzShape="circle" nzTitle="Modidier" nzPlacement="top" nz-tooltip><i nz-icon type="edit"></i></button></td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div fxFlex fxLayoutAlign="end center">
+    <button nz-button nzType="primary" nzSize="size" nzShape="circle" nzTitle="Créer" nzPlacement="top" nz-tooltip><i nz-icon type="plus"></i></button>
+  </div>
+  <div fxFlex fxLayoutAlign="center">
+    <nz-pagination (nzPageIndexChange)="changePage($event)" [nzPageSize]="1" [nzPageIndex]="1" [nzTotal]="usersPagination.pageTotal"></nz-pagination>
+  </div>
+</div>

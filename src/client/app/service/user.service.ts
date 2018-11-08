@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { UserDto } from '../../../shared/dto/user/UserDto';
+import { UserWhithPaginationDto } from '../../../shared/dto/user/user-with-pagination.dto';
+import { PaginationDto } from '../../../shared/dto/pagination.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +28,10 @@ export class UserService {
     this.user = user;
   }
 
-  findAll(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.baseUrl}/user`);
+  findAll(page: number, pageSize: number): Observable<UserWhithPaginationDto> {
+    return this.http.get<UserWhithPaginationDto>(
+      `${environment.baseUrl}/user`,
+      { params: { page: page.toString(), pageSize: pageSize.toString() } }
+    );
   }
 }

@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { UserCreateDto } from '../../../shared/dto/user/UserCreateDto';
 import { UserLoginDto } from '../../../shared/dto/user/UserLoginDto';
+import { UserWhithPaginationDto } from '../../../shared/dto/user/user-with-pagination.dto';
 import { BcryptService } from '../../core/service/bcrypt.service';
 
 @Injectable()
@@ -14,8 +15,21 @@ export class UserService {
     private bcryptService: BcryptService
   ) {}
 
-  async findAll(): Promise<User[]> {
-    return await this.userRepository.find();
+  async findAll(page: number, pageSize: number): Promise<UserWhithPaginationDto> {
+
+    const userTotal = await this.userRepository.count();
+    const pageTotal = Math.ceil(userTotal / pageSize);
+    const users = await this.userRepository.find({
+                    order: { lastName: 'ASC' },
+                    skip: page * pageSize,
+                    take: pageSize
+                  });
+
+    const userWithPagination = new UserWhithPaginationDto();
+    userWithPagination.pageTotal = pageTotal;
+    userWithPagination.users = users;
+
+    return userWithPagination;
   }
 
   async findByMail(mail: string): Promise<User> {
