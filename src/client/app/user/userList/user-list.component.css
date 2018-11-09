@@ -1,0 +1,12 @@
+.sizeWithPagination ::ng-deep .ant-table-body {
+    min-height: calc(100vh - 305px);
+}
+
+.sizeWithoutPagination ::ng-deep .ant-table-body {
+    min-height: calc(100vh - 241px);
+}
+
+.sizeWithoutPagination ::ng-deep .ant-table-footer {
+    padding: unset;
+}
+

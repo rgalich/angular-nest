@@ -1,5 +1,10 @@
 <div fxLayout="column">
-  <nz-table #nzTable [nzData]="usersPagination.users" [nzLoading]="loading" [nzShowPagination]="false" [nzScroll]="{ y: 'calc(100vh - 240px)' }">
+  <nz-table [ngClass]="{'sizeWithPagination': isPagination, 'sizeWithoutPagination': !isPagination}" 
+            #nzTable 
+            [nzFooter]="footer" 
+            [nzData]="usersPagination.users" [nzLoading]="loading" 
+            [nzShowPagination]="false" [nzScroll]="{ y: sizeScroll }"
+  >
     <thead>
       <tr>
         <th>Nom</th>
@@ -13,10 +18,12 @@
       </tr>
     </tbody>
   </nz-table>
+  <ng-template #footer>
+    <div *ngIf="isPagination" fxFlex fxLayoutAlign="center">
+      <nz-pagination (nzPageIndexChange)="changePage($event)" [nzPageSize]="1" [nzPageIndex]="1" [nzTotal]="usersPagination.pageTotal"></nz-pagination>
+    </div>
+  </ng-template>
   <div fxFlex fxLayoutAlign="end center">
     <button nz-button nzType="primary" nzSize="size" nzShape="circle" nzTitle="Créer" nzPlacement="top" nz-tooltip><i nz-icon type="plus"></i></button>
-  </div>
-  <div fxFlex fxLayoutAlign="center">
-    <nz-pagination (nzPageIndexChange)="changePage($event)" [nzPageSize]="1" [nzPageIndex]="1" [nzTotal]="usersPagination.pageTotal"></nz-pagination>
   </div>
 </div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserWhithPaginationDto } from '../../../../shared/dto/user/user-with-pagination.dto';
 import { UserService } from 'app/service/user.service';
 import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list',
@@ -19,16 +19,26 @@ export class UserListComponent implements OnInit {
 
   ngOnInit() {
     this.pageSubject.pipe(
-      map(e => console.log(e))
-    ).subscribe(() => {});
-    this.userService.findAll(0, 2).subscribe(e => {
-      this.usersPagination = e;
+      tap(() => this.loading = true),
+      switchMap(page => this.userService.findAll(page - 1, 2))
+    ).subscribe(usersPagination => {
+      this.usersPagination = usersPagination;
       this.loading = false;
     });
+
+    this.pageSubject.next(1);
   }
 
   changePage(page: number) {
     this.pageSubject.next(page);
+  }
+
+  get isPagination() {
+    return this.usersPagination.pageTotal > 1 ? true : false;
+  }
+
+  get sizeScroll() {
+    return this.isPagination ? 'calc(100vh - 305px)' : 'calc(100vh - 241px)';
   }
 
 }
