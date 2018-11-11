@@ -18,7 +18,6 @@ export class UserController {
   }
 
   @Post()
-  @UseGuards(AuthGuard())
   async create(@Body() user: UserCreateDto) {
     return this.userService.create(user);
   }

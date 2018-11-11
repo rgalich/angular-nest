@@ -5,6 +5,7 @@ import { UserDetailComponent } from './userDetail/user-detail.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UserRoutingModule } from './user-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [UserListComponent, UserDetailComponent],
@@ -12,7 +13,9 @@ import { UserRoutingModule } from './user-routing.module';
     CommonModule,
     NgZorroAntdModule,
     FlexLayoutModule,
-    UserRoutingModule
+    UserRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class UserModule { }

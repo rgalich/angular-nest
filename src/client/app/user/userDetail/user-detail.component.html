@@ -1,3 +1,65 @@
-<p>
-  user works!
-</p>
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <div fxLayout="column" fxLayoutAlign="stretch">
+      <div style="min-height: calc(100vh - 219px)">
+          <nz-card fxFlex="50%" nzTitle="Informations générales">
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="firstName">Prénom</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input formControlName="firstName" id="firstName">
+                <nz-form-explain *ngIf="validateForm.get('firstName').dirty && validateForm.get('firstName').errors">Le prénom est obligatoire!</nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="lastName">Nom</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input formControlName="lastName" id="lastName">
+                <nz-form-explain *ngIf="validateForm.get('lastName').dirty && validateForm.get('lastName').errors">Le nom est obligatoire!</nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="mail">Email</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input formControlName="mail" id="mail">
+                <nz-form-explain *ngIf="validateForm.get('mail').dirty && validateForm.get('mail').errors">L'adresse mail est obligatoire!</nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phone">Téléphone</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input formControlName="phone" id="phone">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="isAdmin">Administrateur ?</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <nz-switch formControlName="isAdmin" id="isAdmin" nzCheckedChildren="Oui" nzUnCheckedChildren="Non"></nz-switch>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-card>
+          <nz-card *ngIf="!isAdmin" fxFlex="50%" nzTitle="Veuillez saisir un ou plusieurs groupe(s) utilisateur(s)">
+              <nz-table
+              #rightGroup
+              [nzData]="data"
+            >
+              <thead>
+                <tr>
+                  <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+                  <th>Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of rightGroup.data">
+                  <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
+                  <td>{{data.name}}</td>
+                </tr>
+              </tbody>
+            </nz-table>
+          </nz-card> 
+      </div>
+      <nz-divider></nz-divider>
+      <div fxLayout.xs="column" fxLayoutAlign.xs="stretch" fxLayoutAlign.gt-xs="end">
+        <button ngClass.gt-xs="mr-small" (click)="previousRoute($event)" nz-button nzType="default">Retour</button>
+        <button nz-button nzType="primary">Créer</button>
+      </div>
+  </div>
+</form>

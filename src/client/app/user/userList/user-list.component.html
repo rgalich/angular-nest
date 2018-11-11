@@ -4,16 +4,19 @@
             [nzFooter]="footer" 
             [nzData]="usersPagination.users" [nzLoading]="loading" 
             [nzShowPagination]="false" [nzScroll]="{ y: sizeScroll }"
+            [nzWidthConfig]="['45%',null,'50px']"
   >
     <thead>
       <tr>
+        <th>Prénom</th>
         <th>Nom</th>
-        <th nzWidth="50px"></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let user of nzTable.data">
         <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
         <td><button nz-button nzType="primary" nzSize="size" nzShape="circle" nzTitle="Modidier" nzPlacement="top" nz-tooltip><i nz-icon type="edit"></i></button></td>
       </tr>
     </tbody>
@@ -24,6 +27,6 @@
     </div>
   </ng-template>
   <div fxFlex fxLayoutAlign="end center">
-    <button nz-button nzType="primary" nzSize="size" nzShape="circle" nzTitle="Créer" nzPlacement="top" nz-tooltip><i nz-icon type="plus"></i></button>
+    <button nz-button routerLink="/user/create" nzType="primary" nzSize="size" nzShape="circle" nzTitle="Créer" nzPlacement="top" nz-tooltip><i nz-icon type="plus"></i></button>
   </div>
 </div>

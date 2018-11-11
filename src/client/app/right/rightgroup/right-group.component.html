@@ -13,7 +13,7 @@
       </tr>
     </tbody>
   </nz-table>
-  <div fxFlex fxLayoutAlign="end center">
+  <div [ngStyle]="{'z-index': 1}" fxFlex fxLayoutAlign="end center">
     <button routerLink="/right/create" nz-button nzType="primary" nzSize="size" nzShape="circle" nzTitle="Créer" nzPlacement="top" nz-tooltip><i nz-icon type="plus"></i></button>
   </div>
 </div>

@@ -9,6 +9,9 @@ export class RightGroup {
   @Column({ length: 500, nullable: false })
   libelle: string;
 
+  @Column({ nullable: false, default: false })
+  isDelete: boolean;
+
   @ManyToMany(type => Right)
   @JoinTable({ name: 'right_group_right' })
   rights: Right[];

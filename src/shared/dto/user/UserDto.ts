@@ -6,4 +6,10 @@ export class UserDto {
     lastName: string;
 
     mail: string;
+
+    phone: string;
+
+    isAdmin: boolean;
+
+    isDelete: boolean;
 }
